@@ -1,6 +1,6 @@
 MidnightSun Boost converter
 
-XVIN	1 0	VSUPPLY PARAMS: V=24 IMAX=4.5
+XVIN	1 0	VSUPPLY
 C1	1 0	6.38u
 L1	1 2	7.7u
 S1	2 3 9 0	SWMODEL OFF
@@ -35,11 +35,11 @@ VS2	8 0	0 PULSE(1 0 2m 10n 10n 497.27u 0.5m)
 *** Subcircuits ***********************************************
 
 * Voltage supply with current limit
-.SUBCKT VSUPPLY 1 2 PARAMS: V=24 IMAX=4
-	I1	2 3	DC {IMAX}
+.SUBCKT VSUPPLY 1 2
+	I1	2 3	DC 4.5
 	D1	2 3	DZENER
 	VMEAS	3 1	DC 0
-	.MODEL DZENER D BV={V}
+	.MODEL DZENER D BV=24
 .ENDS
 
 *** Initial conditions & options ******************************
