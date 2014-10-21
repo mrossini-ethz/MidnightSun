@@ -1,0 +1,67 @@
+MidnightSun Boost converter
+
+XVIN	1 0	VSUPPLY PARAMS: V=24 IMAX=4
+C1	1 0	6.38u
+L1	1 2	7.7u
+S1	2 3 9 0	SWMODEL OFF
+R8	3 33	0.072
+VIND	33 0	DC 0
+D1	2 4	DMOD
+C3	4 0	103u
+
+* Load
+DLED	4 5	CXA2520 TEMP=85
+S2	5 6 8 0	SWMODEL ON
+R10	6 55	0.15
+VLED	55 0	DC 0
+R49	4 0	100K
+
+* Boost PWM
+VS1	8 9	0 PULSE(0 1 10u 10n 10n 0.578u 1u)
+* Dimming
+VS2	8 0	0 PULSE(1 0 2m 10n 10n 497.27u 0.5m)
+*VS2	8 0	0 PULSE(1 0 2m 10n 10n 0.25m 0.5m)
+*VS2	8 0	DC 2
+
+*** Models ****************************************************
+
+* Diode models
+.MODEL SWMODEL SW VT=0.5 RON=0.0001
+.MODEL DMOD D
+
+* Cree XLAMP CXA2520 LED: Model valid for 200mA to 1200mA & Tj=25C
+.MODEL CXA2520 D IS=4.35901E-09 N=74.94140054 RS=2.428185843 XTI=1409.967859 EG=2.5000
+
+*** Subcircuits ***********************************************
+
+* Voltage supply with current limit
+.SUBCKT VSUPPLY 1 2 PARAMS: V=24 IMAX=4
+	I1	2 3	DC {IMAX}
+	D1	2 3	DZENER
+	VMEAS	3 1	DC 0
+	.MODEL DZENER D BV={V}
+.ENDS
+
+*** Initial conditions & options ******************************
+
+* Initial conditions
+.IC v(4)=23.3
+
+*** Control ***************************************************
+
+.CONTROL
+
+* Analysis
+tran 0.01u 3.5m
+
+* Supply current
+plot i(v.xvin.vmeas)
+
+* LED voltage, output voltage, input voltage
+plot v(4, 5), v(4), v(1)
+
+* LED current
+plot i(vled)
+
+.ENDC
+.END
