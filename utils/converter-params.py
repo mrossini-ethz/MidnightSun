@@ -24,7 +24,7 @@ fSW = 1e6
 DVOUTRIPPLE = 0.01
 
 # Input voltage ripple
-DVIN = 0.05
+DVIN = 0.12
 
 ### Calculations ######################
 
