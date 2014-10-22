@@ -12,16 +12,19 @@ ax = fig.gca(projection='3d')
 # Diode forward voltage
 VD = 0.7
 
+# LED power (W)
+PLED = 90
 # LED voltage
 X = linspace(30, 80, 100)
 #VLED = 40
 # Minimum input voltage
 #VINMIN = 24
-Y = linspace(10,35,100)
+Y = linspace(10,25,100)
 VLED, VINMIN = meshgrid(X,Y)
 
 # LED current
-ILED = 2.5
+#ILED = 1.25
+ILED = PLED / VLED
 #ILED = linspace(0.5, 5, 1000)
 
 # Boost FET voltage drop
