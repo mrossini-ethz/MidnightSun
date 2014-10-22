@@ -13,14 +13,15 @@ ax = fig.gca(projection='3d')
 VD = 0.7
 
 # LED power (W)
-PLED = 90
+#PLED = 30
+X = linspace(30, 90, 100)
 # LED voltage
 X = linspace(30, 80, 100)
-#VLED = 40
+VLED = 40
 # Minimum input voltage
 #VINMIN = 24
 Y = linspace(10,25,100)
-VLED, VINMIN = meshgrid(X,Y)
+PLED, VINMIN = meshgrid(X,Y)
 
 # LED current
 #ILED = 1.25
@@ -83,6 +84,6 @@ R10 = 3.7 / (ILED * 9.9 * 2)
 
 ### Plots #############################
 #pyplot.plot(VLED,VINMIN,L)
-p = ax.plot_surface(VLED, VINMIN, L, rstride=4, cstride=4, color='red')
+p = ax.plot_surface(PLED, VINMIN, ILP, rstride=4, cstride=4, color='red')
 pyplot.ticklabel_format(style='sci',axis='z', scilimits=(0,0))
 pyplot.show()

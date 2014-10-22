@@ -1,0 +1,12 @@
+L:
+Induktivität, SMD 22 uH 6.9 A ±20%, ETQP5M220YFK, Panasonic Automotive & Industrial Systems (Distrelec Art.Nr.  335826)
+
+C1.2
+Alu-Elko radial 10 uF 35 VDC, NKR100M1VE11VU, Jamicon (Art.Nr.  802959)
+C1.1
+Kondensator SMD 1 uF 50 VDC 0805, GRM21BR71H105KA12L, Murata (Art.Nr.  838361)
+
+C3.5-6
+Kondensator SMD 1 uF 100 VDC 1206, GRM31CR72A105KA01L, Murata (Art.Nr. 838365)
+C3.1-4
+Alu-Elko radial 47 uF 100 VDC, 100PX47MT78X11.5, Rubycon (Art.Nr.  800028)

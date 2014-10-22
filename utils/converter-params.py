@@ -69,3 +69,10 @@ print "*> C1 =", C1 * 1e6, "uF (ESR <", ESR_C1, ")"
 # Sense+ resistor
 R10 = 3.7 / (ILED * 9.9 * 2)
 print "*> R10 =", R10, "(V:", ILED * R10, ")"
+
+# Warnings
+
+if DMAX > 0.5:
+    print '!!! slope compensation required !!!'
+if ILED * R10 > 0.3:
+    print '!!! CC warning !!!'
