@@ -57,6 +57,10 @@ C3 = ILED * 2 * DMAX / (DVOUTRIPPLE * fSW)
 ESR_C3 = DVOUTRIPPLE / (2 * ILP)
 print "*> C3 =", C3 * 1e6, "uF (ESR <", ESR_C3, ")"
 
+# slope compensation capacitor
+C2 = 3 * L * 100 * 1E-6 / ((VLED - VINMIN) * R8 *2)
+print "*> C2 =", C2 * 1e9, "nF (assuming L =", L * 1e6, "uH)"
+
 # Input capacitor
 C1 = DIL / (4 * DVIN * fSW)
 ESR_C1 = DVIN / (DIL * 2)
@@ -65,3 +69,10 @@ print "*> C1 =", C1 * 1e6, "uF (ESR <", ESR_C1, ")"
 # Sense+ resistor
 R10 = 3.7 / (ILED * 9.9 * 2)
 print "*> R10 =", R10, "(V:", ILED * R10, ")"
+
+# Warnings
+
+if DMAX > 0.5:
+    print '!!! slope compensation required !!!'
+if ILED * R10 > 0.3:
+    print '!!! CC warning !!!'
