@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Wednesday, 2014 October 22 10:33:24
+EESchema Schematic File Version 2
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -30,13 +30,14 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:schematic-library
+LIBS:led-driver-cache
 EELAYER 27 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "22 oct 2014"
+Date "31 oct 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -131,17 +132,6 @@ F 2 "~" H 7450 3150 60  0000 C CNN
 F 3 "~" H 7450 3150 60  0000 C CNN
 	1    7450 3150
 	1    0    0    -1  
-$EndComp
-$Comp
-L C C3.1
-U 1 1 5446A1DF
-P 8100 5700
-F 0 "C3.1" H 8100 5800 40  0000 L CNN
-F 1 "47 uF" H 8106 5615 40  0000 L CNN
-F 2 "~" H 8138 5550 30  0000 C CNN
-F 3 "~" H 8100 5700 60  0000 C CNN
-	1    8100 5700
-	-1   0    0    1   
 $EndComp
 $Comp
 L INDUCTOR L1
@@ -240,17 +230,6 @@ F 1 "POWER" V 1350 2450 40  0000 C CNN
 F 2 "~" H 1300 2450 60  0000 C CNN
 F 3 "~" H 1300 2450 60  0000 C CNN
 	1    1300 2450
-	-1   0    0    1   
-$EndComp
-$Comp
-L C C1.1
-U 1 1 5446A7A9
-P 2300 5700
-F 0 "C1.1" H 2300 5800 40  0000 L CNN
-F 1 "10 uF" H 2306 5615 40  0000 L CNN
-F 2 "~" H 2338 5550 30  0000 C CNN
-F 3 "~" H 2300 5700 60  0000 C CNN
-	1    2300 5700
 	-1   0    0    1   
 $EndComp
 $Comp
@@ -406,7 +385,7 @@ Wire Wire Line
 	6100 3850 6100 4050
 Connection ~ 6100 4050
 Wire Wire Line
-	2300 5500 2300 2350
+	2300 2350 2300 5500
 Connection ~ 2300 2350
 Wire Wire Line
 	2500 6050 2500 5950
@@ -574,88 +553,38 @@ Connection ~ 4100 6050
 $Comp
 L C C3.5
 U 1 1 54476AB4
-P 8900 5700
+P 9050 5700
 F 0 "C3.5" H 8900 5800 40  0000 L CNN
-F 1 "1 uF" H 8906 5615 40  0000 L CNN
-F 2 "~" H 8938 5550 30  0000 C CNN
-F 3 "~" H 8900 5700 60  0000 C CNN
-	1    8900 5700
+F 1 "1 uF" H 8900 5600 40  0000 L CNN
+F 2 "~" H 9088 5550 30  0000 C CNN
+F 3 "~" H 9050 5700 60  0000 C CNN
+	1    9050 5700
 	-1   0    0    1   
 $EndComp
 Wire Wire Line
-	8300 5900 8300 6050
-Connection ~ 8300 6050
-Wire Wire Line
-	8500 5900 8500 6050
-Connection ~ 8500 6050
-Wire Wire Line
-	8700 5900 8700 6050
-Connection ~ 8700 6050
-Wire Wire Line
-	8900 5900 8900 6050
-Connection ~ 8900 6050
-Wire Wire Line
-	9100 5900 9100 6050
-Connection ~ 9100 6050
-Wire Wire Line
-	8300 5500 8300 5350
-Wire Wire Line
-	8100 5350 9100 5350
+	8350 5500 8350 5350
 Connection ~ 8100 5350
 Wire Wire Line
-	8500 5350 8500 5500
-Connection ~ 8300 5350
+	8600 5350 8600 5500
+Connection ~ 8350 5350
 Wire Wire Line
-	8700 5350 8700 5500
-Connection ~ 8500 5350
+	8850 5350 8850 5500
+Connection ~ 8600 5350
 Wire Wire Line
-	8900 5350 8900 5500
-Connection ~ 8700 5350
+	9050 5350 9050 5500
+Connection ~ 8850 5350
 Wire Wire Line
-	9100 5350 9100 5500
-Connection ~ 8900 5350
-$Comp
-L C C3.2
-U 1 1 5447703B
-P 8300 5700
-F 0 "C3.2" H 8300 5800 40  0000 L CNN
-F 1 "47 uF" H 8306 5615 40  0000 L CNN
-F 2 "~" H 8338 5550 30  0000 C CNN
-F 3 "~" H 8300 5700 60  0000 C CNN
-	1    8300 5700
-	-1   0    0    1   
-$EndComp
-$Comp
-L C C3.3
-U 1 1 54477041
-P 8500 5700
-F 0 "C3.3" H 8500 5800 40  0000 L CNN
-F 1 "47 uF" H 8506 5615 40  0000 L CNN
-F 2 "~" H 8538 5550 30  0000 C CNN
-F 3 "~" H 8500 5700 60  0000 C CNN
-	1    8500 5700
-	-1   0    0    1   
-$EndComp
-$Comp
-L C C3.4
-U 1 1 54477051
-P 8700 5700
-F 0 "C3.4" H 8700 5800 40  0000 L CNN
-F 1 "47 uF" H 8706 5615 40  0000 L CNN
-F 2 "~" H 8738 5550 30  0000 C CNN
-F 3 "~" H 8700 5700 60  0000 C CNN
-	1    8700 5700
-	-1   0    0    1   
-$EndComp
+	9250 5350 9250 5500
+Connection ~ 9050 5350
 $Comp
 L C C3.6
 U 1 1 54477075
-P 9100 5700
+P 9250 5700
 F 0 "C3.6" H 9100 5800 40  0000 L CNN
-F 1 "1 uF" H 9106 5615 40  0000 L CNN
-F 2 "~" H 9138 5550 30  0000 C CNN
-F 3 "~" H 9100 5700 60  0000 C CNN
-	1    9100 5700
+F 1 "1 uF" H 9100 5600 40  0000 L CNN
+F 2 "~" H 9288 5550 30  0000 C CNN
+F 3 "~" H 9250 5700 60  0000 C CNN
+	1    9250 5700
 	-1   0    0    1   
 $EndComp
 $Comp
@@ -677,4 +606,76 @@ Wire Wire Line
 Wire Wire Line
 	2050 5300 2300 5300
 Connection ~ 2300 5300
+$Comp
+L CP1 C1.1
+U 1 1 54535CDA
+P 2300 5700
+F 0 "C1.1" H 2350 5800 50  0000 L CNN
+F 1 "10 uF" H 2350 5600 50  0000 L CNN
+F 2 "~" H 2300 5700 60  0000 C CNN
+F 3 "~" H 2300 5700 60  0000 C CNN
+	1    2300 5700
+	1    0    0    -1  
+$EndComp
+$Comp
+L CP1 C3.1
+U 1 1 54536C8B
+P 8100 5700
+F 0 "C3.1" H 8100 5800 50  0000 L CNN
+F 1 "47 uF" H 8100 5600 50  0000 L CNN
+F 2 "~" H 8100 5700 60  0000 C CNN
+F 3 "~" H 8100 5700 60  0000 C CNN
+	1    8100 5700
+	1    0    0    -1  
+$EndComp
+$Comp
+L CP1 C3.2
+U 1 1 54536C9B
+P 8350 5700
+F 0 "C3.2" H 8350 5800 50  0000 L CNN
+F 1 "47 uF" H 8350 5600 50  0000 L CNN
+F 2 "~" H 8350 5700 60  0000 C CNN
+F 3 "~" H 8350 5700 60  0000 C CNN
+	1    8350 5700
+	1    0    0    -1  
+$EndComp
+$Comp
+L CP1 C3.3
+U 1 1 54536CA1
+P 8600 5700
+F 0 "C3.3" H 8600 5800 50  0000 L CNN
+F 1 "47 uF" H 8600 5600 50  0000 L CNN
+F 2 "~" H 8600 5700 60  0000 C CNN
+F 3 "~" H 8600 5700 60  0000 C CNN
+	1    8600 5700
+	1    0    0    -1  
+$EndComp
+$Comp
+L CP1 C3.4
+U 1 1 54536CA7
+P 8850 5700
+F 0 "C3.4" H 8850 5800 50  0000 L CNN
+F 1 "47 uF" H 8850 5600 50  0000 L CNN
+F 2 "~" H 8850 5700 60  0000 C CNN
+F 3 "~" H 8850 5700 60  0000 C CNN
+	1    8850 5700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8100 5350 9250 5350
+Wire Wire Line
+	9250 5900 9250 6050
+Connection ~ 9250 6050
+Wire Wire Line
+	9050 5900 9050 6050
+Connection ~ 9050 6050
+Wire Wire Line
+	8850 5900 8850 6050
+Connection ~ 8850 6050
+Wire Wire Line
+	8600 5900 8600 6050
+Connection ~ 8600 6050
+Wire Wire Line
+	8350 5900 8350 6050
+Connection ~ 8350 6050
 $EndSCHEMATC
