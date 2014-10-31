@@ -70,6 +70,9 @@ print "*> C1 =", C1 * 1e6, "uF (ESR <", ESR_C1, ")"
 R10 = 3.7 / (ILED * 9.9 * 2)
 print "*> R10 =", R10, "(V:", ILED * R10, ")"
 
+ID = ILAVG * (1 - DMAX) * 1.5
+print ">ID = ", ID
+
 # Warnings
 
 if DMAX > 0.5:
