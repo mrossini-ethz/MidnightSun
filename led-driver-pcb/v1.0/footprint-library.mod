@@ -1,10 +1,11 @@
-PCBNEW-LibModule-V1  Fri 31 Oct 2014 12:02:49 CET
+PCBNEW-LibModule-V1  Son 02 Nov 2014 21:02:00 CET
 # encoding utf-8
 Units mm
 $INDEX
 CP6.5x2.5
 CP8x3.5
 LSMD8x8
+PinHeader3x2
 RV_BOURNS
 TO220AB-Schottky
 WAGO2P
@@ -90,6 +91,61 @@ Ne 0 ""
 Po 3.2 0
 $EndPAD
 $EndMODULE LSMD8x8
+$MODULE PinHeader3x2
+Po 0 0 0 15 54568DB4 00000000 ~~
+Li PinHeader3x2
+Sc 0
+AR 
+Op 0 0 0
+T0 0 -3.25 1 1 0 0.15 N V 21 N "PinHeader3x2"
+T1 0 3.5 1 1 0 0.15 N V 21 N "VAL**"
+DS -7.62 -4.45 -7.62 4.45 0.15 21
+DS -7.62 4.45 7.62 4.45 0.15 21
+DS 7.62 4.45 7.62 -4.45 0.15 21
+DS 7.62 -4.45 -7.62 -4.45 0.15 21
+$PAD
+Sh "1" R 1.6 1.6 0 0 0
+Dr 0.9 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po -2.54 1.27
+$EndPAD
+$PAD
+Sh "2" C 1.6 1.6 0 0 0
+Dr 0.9 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po -2.54 -1.27
+$EndPAD
+$PAD
+Sh "3" C 1.6 1.6 0 0 0
+Dr 0.9 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 0 1.27
+$EndPAD
+$PAD
+Sh "4" C 1.6 1.6 0 0 0
+Dr 0.9 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 0 -1.27
+$EndPAD
+$PAD
+Sh "5" C 1.6 1.6 0 0 0
+Dr 0.9 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 2.54 1.27
+$EndPAD
+$PAD
+Sh "6" C 1.6 1.6 0 0 0
+Dr 0.9 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 2.54 -1.27
+$EndPAD
+$EndMODULE PinHeader3x2
 $MODULE RV_BOURNS
 Po 0 0 0 15 54536C49 00000000 ~~
 Li RV_BOURNS

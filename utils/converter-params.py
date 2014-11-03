@@ -50,7 +50,7 @@ print "*> L =", L * 1e6, "uH"
 
 # Current sense resistor
 R8 = 0.25 / (ILP * 1.25)
-print "*> R8 =", R8
+print "*> R8 =", R8, "(power:", (ILP ** 2) * R8 * DMAX, ")"
 
 # Output capacitor
 C3 = ILED * 2 * DMAX / (DVOUTRIPPLE * fSW)
@@ -68,7 +68,7 @@ print "*> C1 =", C1 * 1e6, "uF (ESR <", ESR_C1, ")"
 
 # Sense+ resistor
 R10 = 3.7 / (ILED * 9.9 * 2)
-print "*> R10 =", R10, "(V:", ILED * R10, ")"
+print "*> R10 =", R10, "(V:", ILED * R10, ", power:", ILED * ILED * R10, ")"
 
 ID = ILAVG * (1 - DMAX) * 1.5
 print ">ID = ", ID
