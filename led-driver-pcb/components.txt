@@ -20,3 +20,11 @@ Schottky diode 2x 10 A TO-220AB, STPS20H100CT, ST (Art.Nr. 601113) CHF 2.24
 
 RV1
 Trimmer Cermet 10 kOhm linear 500 mW, 3296Y-1-103LF, Bourns (Art.Nr. 	742220) CHF 1.73
+
+
+
+
+----
+
+R8
+Precision resistor, SMD 0E07 1 W  1 %, (Art. Nr. 461225) 0.50 CHF

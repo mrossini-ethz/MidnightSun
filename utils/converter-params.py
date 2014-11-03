@@ -71,7 +71,7 @@ R10 = 3.7 / (ILED * 9.9 * 2)
 print "*> R10 =", R10, "(V:", ILED * R10, ", power:", ILED * ILED * R10, ")"
 
 ID = ILAVG * (1 - DMAX) * 1.5
-print ">ID = ", ID
+print "*> D1: I = ", ID, "A, P =", ID * 0.7, "W"
 
 # Warnings
 
