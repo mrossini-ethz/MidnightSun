@@ -70,7 +70,8 @@ print "*> R8 =", round(R8, 3), "(power:", round((ILP ** 2) * R8 * DMAX, 3), "W, 
 # Output capacitor
 C3 = ILED * 2 * DMAX / (DVOUTRIPPLE * fSW)
 ESR_C3 = DVOUTRIPPLE / (2 * ILP)
-print "*> C3 =", round(C3 * 1e6), "uF (ESR <", round(ESR_C3, 4), ")"
+ICOUT = (ILAVG * ((1 - DMAX) ** 2) * DMAX + ILAVG * (DMAX ** 2) * (1 - DMAX)) ** 0.5
+print "*> C3 =", round(C3 * 1e6), "uF (ESR <", round(ESR_C3, 4), "), I_RMS =", round(ICOUT, 2), "= 4 *", round(ICOUT / 4, 3), "A"
 
 # slope compensation capacitor
 C2 = 3 * L * 100 * 1E-6 / ((VLED - VINMIN) * R8 *2)
@@ -79,7 +80,8 @@ print "*> C2 =", round(C2 * 1e9), "nF (assuming L =", round(L * 1e6, 1), "uH)"
 # Input capacitor
 C1 = DIL / (4 * DVIN * fSW)
 ESR_C1 = DVIN / (DIL * 2)
-print "*> C1 =", round(C1 * 1e6, 1), "uF (ESR <", round(ESR_C1, 3), ")"
+ICIN = DIL / 2 / (3 ** 0.5)
+print "*> C1 =", round(C1 * 1e6, 1), "uF (ESR <", round(ESR_C1, 3), ", I_RMS =", round(ICIN, 2), "A)"
 
 # Sense+ resistor
 R10 = 3.7 / (ILED * 9.9 * 4)
