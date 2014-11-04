@@ -14,7 +14,9 @@ VLED = 40
 ILED = 1.25
 
 # Boost FET voltage drop
+RFET = 0.0265
 VFET = 0.2
+RTFET = 40
 
 # Minimum input voltage
 VINMIN = 24
@@ -30,6 +32,9 @@ DVIN = 0.12
 
 # Dynamic resistance of LED at VLED
 RLED = 4.28
+
+# Power resistor thermal resistance
+RTR = 44.5
 
 ### Calculations ######################
 
@@ -49,13 +54,18 @@ print "*DIL =", round(DIL, 2), "A"
 ILP = ILAVG + DIL / 2
 print "*ILP =", round(ILP, 2), "A"
 
+# Boost MOSFET voltage, power
+print "*Q1: V =", round(ILP * RFET * 1000) , "mV, P =", round((ILP ** 2) * DMAX * RFET * 1000), "mW, T =", 25 + round((ILP ** 2) * DMAX * RFET * RTFET, 1), "C"
+# PWM MOSFET power
+print "*Q2: V =", round(ILED * RFET * 1000) , "mV, P =", round((ILED ** 2) * RFET * 1000), "mW, T =", 25 + round((ILED ** 2) * RFET * RTFET, 1), "C"
+
 # Inductor
 L = (VINMIN - VFET) * DMAX / (fSW * DIL)
 print "*> L =", round(L * 1e6, 1), "uH"
 
 # Current sense resistor
 R8 = 0.25 / (ILP * 1.25)
-print "*> R8 =", round(R8, 3), "(power:", round((ILP ** 2) * R8 * DMAX, 3), "W)"
+print "*> R8 =", round(R8, 3), "(power:", round((ILP ** 2) * R8 * DMAX, 3), "W, T =", round(25 + (ILP ** 2) * R8 * DMAX * RTR, 1) ,"C)"
 
 # Output capacitor
 C3 = ILED * 2 * DMAX / (DVOUTRIPPLE * fSW)
@@ -73,10 +83,10 @@ print "*> C1 =", round(C1 * 1e6, 1), "uF (ESR <", round(ESR_C1, 3), ")"
 
 # Sense+ resistor
 R10 = 3.7 / (ILED * 9.9 * 4)
-print "*> R10 =", round(R10, 3), "(V:", round(ILED * R10, 3), ", power:", round(ILED * ILED * R10, 3), "W)"
+print "*> R10 =", round(R10, 3), "(V:", round(ILED * R10, 3), ", power:", round(ILED * ILED * R10, 3), "W, T=", round(25 + ILED * ILED * R10 * RTR, 1) ,"C)"
 
 ID = ILAVG * (1 - DMAX) * 1.5
-print "*> D1: I = ", round(ID, 2), "A, P =", round(ID * 0.7, 2), "W"
+print "*> D1: I = ", round(ID, 2), "A, P =", round(ID * 0.7, 2), "W, T =", round(20 + ID * 0.7 * 15, 1), "C"
 
 fZRHP = VLED * (1 - DMAX) ** 2 / (2 * pi * L * ILED)
 ROUT = (RLED + R10) * VLED / ((RLED + R10) * ILED * DMAX + VLED)
