@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2
+EESchema Schematic File Version 2  date Tuesday, 2014 November 04 11:56:06
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -37,7 +37,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "31 oct 2014"
+Date "4 nov 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -57,10 +57,10 @@ F 3 "~" H 5250 4100 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR?
+L GND #PWR01
 U 1 1 5446A109
 P 7450 6150
-F 0 "#PWR?" H 7450 6150 30  0001 C CNN
+F 0 "#PWR01" H 7450 6150 30  0001 C CNN
 F 1 "GND" H 7450 6080 30  0001 C CNN
 F 2 "" H 7450 6150 60  0000 C CNN
 F 3 "" H 7450 6150 60  0000 C CNN
@@ -292,8 +292,6 @@ Wire Wire Line
 Wire Wire Line
 	6000 4250 6400 4250
 Wire Wire Line
-	6400 4250 6400 6050
-Wire Wire Line
 	4500 4050 3100 4050
 Wire Wire Line
 	3100 4050 3100 4950
@@ -303,8 +301,6 @@ Wire Wire Line
 	7750 5250 7750 5450
 Wire Wire Line
 	7750 6050 7750 5950
-Wire Wire Line
-	1750 6050 9800 6050
 Wire Wire Line
 	7750 4750 7750 3150
 Wire Wire Line
@@ -326,29 +322,19 @@ Wire Wire Line
 Wire Wire Line
 	9550 3850 9550 5450
 Wire Wire Line
-	9550 6050 9550 5950
-Connection ~ 7750 6050
-Wire Wire Line
 	9800 4000 9800 5500
 Wire Wire Line
 	8900 4000 9800 4000
 Connection ~ 9550 4000
 Wire Wire Line
-	9800 6050 9800 5900
-Connection ~ 9550 6050
-Wire Wire Line
 	6850 4150 6000 4150
 Connection ~ 7150 3150
 Wire Wire Line
-	8100 6050 8100 5900
-Connection ~ 8100 6050
+	8100 5900 8100 6300
 Wire Wire Line
 	7150 4350 7150 5450
 Wire Wire Line
-	7150 5950 7150 6050
-Connection ~ 7150 6050
-Wire Wire Line
-	7450 6150 7450 6050
+	7450 6050 7450 6150
 Connection ~ 7450 6050
 Wire Wire Line
 	7150 4450 6300 4450
@@ -360,7 +346,7 @@ Connection ~ 7150 4450
 Wire Wire Line
 	6550 3750 6550 5500
 Wire Wire Line
-	6550 5900 6550 6050
+	6550 6050 6550 5900
 Connection ~ 6550 6050
 Wire Wire Line
 	6750 4050 6750 5500
@@ -395,9 +381,6 @@ Wire Wire Line
 Wire Wire Line
 	2500 4700 2500 2350
 Connection ~ 2500 2350
-Wire Wire Line
-	1750 2550 1750 6050
-Connection ~ 6400 6050
 Connection ~ 2500 6050
 Wire Wire Line
 	6100 4700 6100 4550
@@ -428,7 +411,7 @@ Wire Wire Line
 	7500 5350 7750 5350
 Connection ~ 7750 5350
 Wire Wire Line
-	6750 5900 6750 6050
+	6750 6050 6750 5900
 Connection ~ 6750 6050
 Wire Wire Line
 	2900 3950 4500 3950
@@ -525,9 +508,6 @@ Wire Wire Line
 	2700 3050 2700 2350
 Connection ~ 2700 2350
 Wire Wire Line
-	1650 3150 1750 3150
-Connection ~ 1750 3150
-Wire Wire Line
 	1650 3250 6200 3250
 Wire Wire Line
 	6200 3250 6200 4450
@@ -536,19 +516,19 @@ Wire Wire Line
 Connection ~ 4200 4700
 Connection ~ 2900 6050
 Wire Wire Line
-	3100 5950 3100 6050
+	3100 6050 3100 5950
 Connection ~ 3100 6050
 Wire Wire Line
-	3300 5900 3300 6050
+	3300 6050 3300 5900
 Connection ~ 3300 6050
 Wire Wire Line
-	3500 5950 3500 6050
+	3500 6050 3500 5950
 Connection ~ 3500 6050
 Wire Wire Line
-	3900 5900 3900 6050
+	3900 6050 3900 5900
 Connection ~ 3900 6050
 Wire Wire Line
-	4100 5950 4100 6050
+	4100 6050 4100 5950
 Connection ~ 4100 6050
 $Comp
 L C C3.5
@@ -598,9 +578,6 @@ F 3 "~" H 2050 5700 60  0000 C CNN
 	1    2050 5700
 	-1   0    0    1   
 $EndComp
-Wire Wire Line
-	2050 5900 2050 6050
-Connection ~ 2050 6050
 Wire Wire Line
 	2050 5500 2050 5300
 Wire Wire Line
@@ -664,18 +641,79 @@ $EndComp
 Wire Wire Line
 	8100 5350 9250 5350
 Wire Wire Line
-	9250 5900 9250 6050
-Connection ~ 9250 6050
+	9250 6050 9250 5900
 Wire Wire Line
-	9050 5900 9050 6050
+	9050 6050 9050 5900
 Connection ~ 9050 6050
 Wire Wire Line
-	8850 5900 8850 6050
+	8850 6050 8850 5900
 Connection ~ 8850 6050
 Wire Wire Line
-	8600 5900 8600 6050
+	8600 6050 8600 5900
 Connection ~ 8600 6050
 Wire Wire Line
-	8350 5900 8350 6050
+	8350 6050 8350 5900
 Connection ~ 8350 6050
+Wire Wire Line
+	5650 6300 9800 6300
+Wire Wire Line
+	6400 4250 6400 6300
+Connection ~ 6400 6300
+Wire Wire Line
+	7150 5950 7150 6300
+Connection ~ 7150 6300
+Wire Wire Line
+	9550 5950 9550 6300
+Connection ~ 9550 6300
+$Comp
+L GNDPWR #PWR02
+U 1 1 5458AC68
+P 8350 6500
+F 0 "#PWR02" H 8350 6550 40  0001 C CNN
+F 1 "GNDPWR" H 8350 6420 40  0000 C CNN
+F 2 "" H 8350 6500 60  0000 C CNN
+F 3 "" H 8350 6500 60  0000 C CNN
+	1    8350 6500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8350 6300 8350 6500
+Connection ~ 8350 6300
+Wire Wire Line
+	9800 6300 9800 5900
+$Comp
+L R RGND0
+U 1 1 5458AEC2
+P 5400 6300
+F 0 "RGND0" V 5480 6300 40  0000 C CNN
+F 1 "0" V 5407 6301 40  0000 C CNN
+F 2 "~" V 5330 6300 30  0000 C CNN
+F 3 "~" H 5400 6300 30  0000 C CNN
+	1    5400 6300
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	5150 6050 5150 6300
+Connection ~ 5150 6050
+Wire Wire Line
+	1650 3150 1850 3150
+Wire Wire Line
+	1850 3150 1850 6050
+Wire Wire Line
+	1850 6050 7750 6050
+Wire Wire Line
+	8100 6050 9250 6050
+Wire Wire Line
+	1750 2550 1750 6300
+Wire Wire Line
+	2050 5900 2050 6400
+Connection ~ 2050 6300
+Wire Wire Line
+	1750 6300 2050 6300
+Wire Wire Line
+	2050 6400 5650 6400
+Wire Wire Line
+	5650 6400 5650 6300
+Connection ~ 8100 6300
+Connection ~ 8100 6050
 $EndSCHEMATC
