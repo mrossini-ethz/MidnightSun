@@ -1,0 +1,31 @@
+MidnightSun Boost converter
+
+V1	1 0	DC 39.9
+V2	2 1	DC 0 AC
+DLED	2 0	CXA2520 TEMP=85
+
+*** Models ****************************************************
+
+* Cree XLAMP CXA2520 LED: Model valid for 200mA to 1200mA & Tj=25C
+.MODEL CXA2520 D IS=4.35901E-09 N=74.94140054 RS=2.428185843 XTI=1409.967859 EG=2.5000
+
+*** Subcircuits ***********************************************
+
+*** Initial conditions & options ******************************
+
+*** Control ***************************************************
+
+.CONTROL
+
+* Analysis
+*dc V1 0 42 0.1
+dc V2 -0.01 0.01 0.01
+*ac lin 100 1 100
+
+* LED current
+plot v(2)
+plot -i(v1)
+print -i(v1)
+
+.ENDC
+.END
