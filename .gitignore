@@ -2,3 +2,5 @@
 led-driver-pcb/v1.0/led-driver-cache.lib
 led-driver-pcb/v1.0/led-driver.bak
 led-driver-pcb/v1.0/led-driver.kicad_pcb-bak
+led-driver-pcb/v1.0/*.pdf
+led-driver-pcb/v1.0/*.ps
