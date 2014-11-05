@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-may-18)-stable date = Wed 05 Nov 2014 12:04:45 CET
+Cmp-Mod V01 Created by CvPcb (2013-may-18)-stable date = Wed 05 Nov 2014 13:55:21 CET
 
 BeginCmp
 TimeStamp = /54535CDA;
@@ -179,14 +179,14 @@ BeginCmp
 TimeStamp = /5446A231;
 Reference = Q1;
 ValeurCmp = MOSFET_N;
-IdModule  = DPAKGDS;
+IdModule  = D2PAK;
 EndCmp
 
 BeginCmp
 TimeStamp = /5446A23E;
 Reference = Q2;
 ValeurCmp = MOSFET_N;
-IdModule  = DPAKGDS;
+IdModule  = D2PAK;
 EndCmp
 
 BeginCmp
