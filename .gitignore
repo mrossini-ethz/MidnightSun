@@ -5,3 +5,13 @@ led-driver-pcb/v1.0/led-driver.kicad_pcb-bak
 led-driver-pcb/v1.0/_autosave-led-driver.kicad_pcb
 led-driver-pcb/v1.0/*.pdf
 led-driver-pcb/v1.0/*.ps
+firmware/*.pdf
+firmware/led-ctrl/*.sym
+firmware/led-ctrl/*.map
+firmware/led-ctrl/*.lss
+firmware/led-ctrl/*.hex
+firmware/led-ctrl/*.elf
+firmware/led-ctrl/*.eep
+firmware/led-ctrl/*.dep
+firmware/led-ctrl/*.lst
+firmware/led-ctrl/*.o
