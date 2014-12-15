@@ -52,7 +52,7 @@ TARGET = led-ctrl
 
 
 # List C source files here. (C dependencies are automatically generated.)
-SRC = main.c 
+SRC = main.c lookup.c
 
 
 # List Assembler source files here.
