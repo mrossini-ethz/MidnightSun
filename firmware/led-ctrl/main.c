@@ -4,11 +4,12 @@
 #include "lookup.h"
 
 /* Lookup table that converts a linear range to an exponential function from 1 up to 8192 in 15 steps */
-int16_t intensity_lookup [] = {1, 2, 3, 5, 9, 16, 28, 49, 84, 147, 256, 446, 776, 1351, 2353, 4096};
+int16_t intensity_lookup [] = {1, 2, 3, 6, 11, 20, 37, 67, 122, 223, 406, 741, 1351, 2464, 4493, 8192};
 
 int main (void) {
-	/* Set clock to 4 MHz by setting the clock division (prescale) to 2 */
-	//clock_set_prescale_2();
+	/* Set clock to 2 MHz by setting the clock division (prescale) to 4 */
+	CLKPR = (1 << CLKPCE);
+	CLKPR = (1 << CLKPS1);
 
 	/* Delay to allow slave devices to start up */
 	_delay_ms(10);
@@ -40,8 +41,8 @@ int main (void) {
 	TCCR1A |= (1<<WGM11);
 	TCCR1A &= ~(1<<WGM10);
 	// Define TOP value (frequency = f_io / (2 * N * TOP), N = prescale factor)
-	ICR1 = 4096;
-	// Set the duty cycle initially to 0/4096
+	ICR1 = 8192;
+	// Set the duty cycle initially to 0/8192
 	OCR1A = 0;
 	// Set no clock prescale and start
 	TCCR1B |= (1<<CS10);
