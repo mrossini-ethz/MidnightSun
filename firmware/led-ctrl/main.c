@@ -1,70 +1,65 @@
 #include <avr/io.h>
 #include <util/delay.h>
 
+#include "macros.h"
 #include "lookup.h"
+
+#ifdef __AVR_ATmega328P__
+# define OC1A_PIN	B1
+# define ADC0_PIN	C0
+#elif defined __AVR_ATmega32U4__
+# define OC1A_PIN	B5
+# define ADC0_PIN	F0
+#endif
 
 /* Lookup table that converts a linear range to an exponential function from 1 up to 8192 in 15 steps */
 int16_t intensity_lookup [] = {1, 2, 3, 6, 11, 20, 37, 67, 122, 223, 406, 741, 1351, 2464, 4493, 8192};
 
 int main (void) {
-	/* Set clock to 2 MHz by setting the clock division (prescale) to 4 */
-	CLKPR = (1 << CLKPCE);
-	CLKPR = (1 << CLKPS1);
+	/* Set clock to 2 MHz by setting the clock division (prescale) to 8 */
+	SET_FLAGS(CLKPR, CLKPCE);
+	SET_FLAGS(CLKPR, CLKPS1, CLKPS0);
 
-	/* Delay to allow slave devices to start up */
-	_delay_ms(10);
-	// set pin PB0 to output (1)
-	//DDRB |= (1<<PB0y);
-	// set pin PB0 to input (0)
-	//DDRB &= ~(1<<PB0);
-	// set all GPIO A to input and pull-up
-	DDRA = 0x00;
-	DDRB = 0xf0;
-	PORTA = 0xfe;
-	PORTB = 0x0f;
-	// set all GPIO to Output
+	/* -- Set all GPIO pins to output --- */
+	DDRB = 0xff;
 	DDRC = 0xff;
 	DDRD = 0xff;
+#ifdef __AVR_ATmega32U4__
+	DDRE = 0xff;
+	DDRF = 0xff;
+	DDRD = 0xff;
+#endif
 
-
-	// Initialise 16-bit timer
-	// Turn off Power Reduction Mode
-	PRR &= ~(1<<PRTIM1);
-	// Set OC1A pin as output
-	DDRD |= (1<<PD5);
-	// Set OC1A output compare pin to clear on upcount and set at downcount
-	TCCR1A |= (1<<COM1A1);
-	TCCR1A &= ~(1<<COM1A0);
-	// Set mode to phase correct PWM with ICR as TOP
-	TCCR1B |= (1<<WGM13);
-	TCCR1B &= ~(1<<WGM12);
-	TCCR1A |= (1<<WGM11);
-	TCCR1A &= ~(1<<WGM10);
-	// Define TOP value (frequency = f_io / (2 * N * TOP), N = prescale factor)
+	/* --- Initialise 16-bit timer --- */
+	/* Set OC1A pin as output */
+	GPIO_SET_OUTPUT(OC1A_PIN);
+	/* Set OC1A output compare pin to clear on upcount and set at downcount */
+	SET_FLAGS(TCCR1A, COM1A1);
+	/* Set mode to phase correct PWM with ICR as TOP */
+	SET_FLAGS(TCCR1B, WGM13);
+	SET_FLAGS(TCCR1A, WGM11);
+	/* Define TOP value (frequency = f_io / (2 * N * TOP), N = prescale factor) */
 	ICR1 = 8192;
-	// Set the duty cycle initially to 0/8192
+	/* Set the duty cycle initially to 0/8192 */
 	OCR1A = 0;
-	// Set no clock prescale and start
-	TCCR1B |= (1<<CS10);
+	/* Set no clock prescale and start */
+	SET_FLAGS(TCCR1B, CS10);
 
-	// setup ADC
-	ADMUX = 0;
-	ADMUX |= (1<<REFS0);
-	ADMUX &= ~(1<<REFS1);
-
-	ADCSRA = 0;
-	ADCSRA |= (1<<ADEN);
-	ADCSRA |= (1<<ADPS0) | (1<<ADPS1) | (1<<ADPS2);
-
-	ADCSRB = 0;
+	/* --- Setup ADC --- */
+	/* Set AREF to AVCC (5 V), use channel 0 */
+	SET_FLAGS(ADMUX, REFS0);
+	/* Set the pin belonging to channel 0 to input */
+	GPIO_SET_INPUT(ADC0_PIN);
+	/* Set clock prescale to 128 and enable */
+	SET_FLAGS(ADCSRA, ADEN, ADPS0, ADPS1, ADPS2);
 
 	/* Main loop */
 	while(1) {
 		/* Start an ADC conversion */
-		ADCSRA |= (1<<ADSC);
+		SET_FLAGS(ADCSRA, ADSC);
 
 		/* Wait for the conversion to finish */
-		while(ADCSRA & (1<<ADSC));
+		while(GET_FLAG(ADCSRA, ADSC));
 
 		/* Calculate intensity from ADC reading */
 		uint16_t intensity;
