@@ -3,6 +3,8 @@
 
 #include "macros.h"
 #include "lookup.h"
+#include "interrupt.h"
+#include "usart.h"
 
 #ifdef __AVR_ATmega328P__
 # define OC1A_PIN	B1
@@ -17,8 +19,8 @@ int16_t intensity_lookup [] = {1, 2, 3, 6, 11, 20, 37, 67, 122, 223, 406, 741, 1
 
 int main (void) {
 	/* Set clock to 2 MHz by setting the clock division (prescale) to 8 */
-	SET_FLAGS(CLKPR, CLKPCE);
-	SET_FLAGS(CLKPR, CLKPS1, CLKPS0);
+	CLKPR = (1 << CLKPCE);
+	CLKPR = (1 << CLKPS0) | (1 << CLKPS1);
 
 	/* -- Set all GPIO pins to output --- */
 	DDRB = 0xff;
@@ -53,8 +55,20 @@ int main (void) {
 	/* Set clock prescale to 128 and enable */
 	SET_FLAGS(ADCSRA, ADEN, ADPS0, ADPS1, ADPS2);
 
+	/* --- Setup UART --- */
+	USART_init();
+
+	/* --- Turn on interrupts --- */
+	interrupts_on();
+
 	/* Main loop */
 	while(1) {
+		if (_rx_complete) {
+			USART_send_bytes(_rx_buffer[_rx_buffer_sel], strlen(_rx_buffer[_rx_buffer_sel]));
+			USART_send_bytes("\n", 1);
+			_rx_complete = 0;
+		}
+
 		/* Start an ADC conversion */
 		SET_FLAGS(ADCSRA, ADSC);
 
