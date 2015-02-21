@@ -1,5 +1,7 @@
 #include <avr/io.h>
 #include <util/delay.h>
+#include <string.h>
+#include <stdio.h>
 
 #include "macros.h"
 #include "lookup.h"
@@ -14,14 +16,42 @@
 # define ADC0_PIN	F0
 #endif
 
-/* Lookup table that converts a linear range to an exponential function from 1 up to 8192 in 15 steps */
-int16_t intensity_lookup [] = {1, 2, 3, 6, 11, 20, 37, 67, 122, 223, 406, 741, 1351, 2464, 4493, 8192};
+/* Lookup table that determines the TOP value for PWM for an input < DIM_PWM_MODE_THR */
+int16_t intensity_lookup_freq [] = {65535, 49449, 37311, 28152, 21242, 16027, 12093, 9125, 6885};
+/* Lookup table that determines the on-time for PWM for an input >= DIM_PWM_MODE_THR */
+int16_t intensity_lookup_duty [] = {8, 11, 14, 19, 25, 33, 43, 57, 76, 101, 134, 177, 235, 311, 413, 547, 725, 961, 1273, 1687, 2236, 2964, 3928, 5206, 6900};
+/* Top value that defines the highest frequency used for PWM */
+#define DIM_PWM_TOP		6885
+/* Minimum on-time for PWM */
+#define DIM_PWM_MIN		8
+/* Threshold of input value at which a changeover occurs between frequency controlled and on-time controlled */
+#define DIM_PWM_MODE_THR	1024
+/* Input range */
+#define DIM_INPUT_MAX		4096
+
+void set_intensity_pwm(int16_t input) {
+	if (input == 0) {
+		/* Turn off output */
+		OCR1A = 0;
+		ICR1 = DIM_PWM_TOP;
+		TCNT1 = 0;
+		return;
+	}
+
+	if (input < DIM_PWM_MODE_THR) {
+		/* Constant t-on, variable frequency */
+		OCR1A = DIM_PWM_MIN;
+		ICR1 = lookup(input, intensity_lookup_freq, 0, DIM_PWM_MODE_THR, 7);
+		TCNT1 = 0;
+	} else {
+		/* Constant frequency, variable t-on */
+		OCR1A = lookup(input, intensity_lookup_duty, DIM_PWM_MODE_THR, DIM_INPUT_MAX, 7);
+		ICR1 = DIM_PWM_TOP;
+		TCNT1 = 0;
+	}
+}
 
 int main (void) {
-	/* Set clock to 2 MHz by setting the clock division (prescale) to 8 */
-	CLKPR = (1 << CLKPCE);
-	CLKPR = (1 << CLKPS0) | (1 << CLKPS1);
-
 	/* -- Set all GPIO pins to output --- */
 	DDRB = 0xff;
 	DDRC = 0xff;
@@ -41,9 +71,9 @@ int main (void) {
 	SET_FLAGS(TCCR1B, WGM13);
 	SET_FLAGS(TCCR1A, WGM11);
 	/* Define TOP value (frequency = f_io / (2 * N * TOP), N = prescale factor) */
-	ICR1 = 8192;
+	ICR1 = DIM_PWM_TOP;
 	/* Set the duty cycle initially to 0/8192 */
-	OCR1A = 0;
+	OCR1A = DIM_PWM_TOP;
 	/* Set no clock prescale and start */
 	SET_FLAGS(TCCR1B, CS10);
 
@@ -64,8 +94,8 @@ int main (void) {
 	/* Main loop */
 	while(1) {
 		if (_rx_complete) {
-			USART_send_bytes(_rx_buffer[_rx_buffer_sel], strlen(_rx_buffer[_rx_buffer_sel]));
-			USART_send_bytes("\n", 1);
+			USART_send_bytes((uint8_t *) _rx_buffer[_rx_buffer_sel], strlen((char *) _rx_buffer[_rx_buffer_sel]));
+			USART_send_bytes((uint8_t *) "\n", 1);
 			_rx_complete = 0;
 		}
 
@@ -76,14 +106,8 @@ int main (void) {
 		while(GET_FLAG(ADCSRA, ADSC));
 
 		/* Calculate intensity from ADC reading */
-		uint16_t intensity;
-		if (ADC < 16)
-			intensity = 0;
-		else
-			intensity = lookup(ADC, intensity_lookup, 32, 992, 6);
-
-		/* Set PWM duty cycle */
-		OCR1A = intensity;
+		uint16_t intensity = ADC * 4;
+		set_intensity_pwm(intensity);
 
 		/* Sleep */
 		_delay_ms(10);

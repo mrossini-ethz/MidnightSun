@@ -23,7 +23,7 @@ void USART_init(void)
 	/* Use default values: Asynchronous mode, 8 bit character size, no parity, 1 stop bit */
 
 	/* Set the baud rate to 9600 */
-	UBRR0 = 12;
+	UBRR0 = 103;
 
 	/* Enable the receiver and transmitter */
 	SET_FLAGS(UCSR0B, RXEN0, TXEN0);
