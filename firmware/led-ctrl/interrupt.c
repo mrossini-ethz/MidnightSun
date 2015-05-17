@@ -11,8 +11,18 @@
 #include "macros.h"
 #include "interrupt.h"
 #include "usart.h"
+#include "lookup.h"
 
 uint8_t sreg_save;
+
+extern uint16_t dim_curve [];
+extern uint8_t dim_curve_points;
+extern volatile uint16_t _dim_curve_position;
+extern uint8_t dim_curve_resolution;
+
+extern volatile uint16_t _intensity;
+
+extern void set_intensity_pwm(int16_t input);
 
 /**
 	\brief USART0 RX complete interrupt handler
@@ -54,6 +64,20 @@ ISR(USART_RX_vect) {
 
 		/* Reset the buffer pointer */
 		_rx_buffer_pointer = 0;
+	}
+}
+
+ISR(TIMER0_OVF_vect) {
+	set_intensity_pwm(lookup(_dim_curve_position, (int16_t *) dim_curve, 0, ((uint16_t) (dim_curve_points - 1)) * (1 << dim_curve_resolution), dim_curve_resolution));
+
+	/* Increment position */
+	if (_dim_curve_position < ((uint16_t) (dim_curve_points - 1)) * (1 << dim_curve_resolution)) {
+		_dim_curve_position++;
+	} else {
+		/* Wrap around */
+		_dim_curve_position = 0;
+		/* Turn off timer */
+		TCCR0B = 0;
 	}
 }
 

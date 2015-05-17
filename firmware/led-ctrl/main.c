@@ -29,6 +29,12 @@ int16_t intensity_lookup_duty [] = {8, 11, 14, 19, 25, 33, 43, 57, 76, 101, 134,
 /* Input range */
 #define DIM_INPUT_MAX		4096
 
+uint16_t dim_curve [32] = {
+4000, 3959, 3837, 3641, 3377, 3057, 2694, 2302, 1898, 1498, 1119, 775, 482, 251, 91, 10, 10, 91, 251, 482, 775, 1119, 1498, 1898, 2302, 2694, 3057, 3377, 3641, 3837, 3959, 4000};
+uint8_t dim_curve_points = 32;
+uint16_t volatile _dim_curve_position;
+uint8_t dim_curve_resolution = 4;
+
 void set_intensity_pwm(int16_t input) {
 	if (input == 0) {
 		/* Turn off output */
@@ -77,6 +83,10 @@ int main (void) {
 	/* Set no clock prescale and start */
 	SET_FLAGS(TCCR1B, CS10);
 
+	/* --- Initialize the 8-bit timer used for dimming curves */
+	/* Enable the interrupt on timer overflow */
+	SET_FLAGS(TIMSK0, TOIE0);
+
 	/* --- Setup ADC --- */
 	/* Set AREF to AVCC (5 V), use channel 0 */
 	SET_FLAGS(ADMUX, REFS0);
@@ -94,11 +104,16 @@ int main (void) {
 	/* Main loop */
 	while(1) {
 		if (_rx_complete) {
+			/* Start timer */
+			TCNT0 = 0;
+			SET_FLAGS(TCCR0B, CS02, CS00);
 			USART_send_bytes((uint8_t *) _rx_buffer[_rx_buffer_sel], strlen((char *) _rx_buffer[_rx_buffer_sel]));
 			USART_send_bytes((uint8_t *) "\n", 1);
+			memset((void *) _rx_buffer[_rx_buffer_sel], '\0', RX_BUFFER_LENGTH);
 			_rx_complete = 0;
 		}
 
+#if 0
 		/* Start an ADC conversion */
 		SET_FLAGS(ADCSRA, ADSC);
 
@@ -108,7 +123,7 @@ int main (void) {
 		/* Calculate intensity from ADC reading */
 		uint16_t intensity = ADC * 4;
 		set_intensity_pwm(intensity);
-
+#endif
 		/* Sleep */
 		_delay_ms(10);
 	} /* Main loop */
