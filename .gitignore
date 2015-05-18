@@ -15,3 +15,12 @@ firmware/led-ctrl/*.eep
 firmware/led-ctrl/*.dep
 firmware/led-ctrl/*.lst
 firmware/led-ctrl/*.o
+firmware/cdc_pwm/*.sym
+firmware/cdc_pwm/*.map
+firmware/cdc_pwm/*.lss
+firmware/cdc_pwm/*.hex
+firmware/cdc_pwm/*.elf
+firmware/cdc_pwm/*.eep
+firmware/cdc_pwm/*.dep
+firmware/cdc_pwm/*.lst
+firmware/cdc_pwm/*.o
