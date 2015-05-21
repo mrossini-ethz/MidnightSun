@@ -1,0 +1,27 @@
+Ideas for the LED driver v2
+===========================
+
+- Analog dimming input
+- Analog dimming reference voltage (maximum dimming), can be connected to
+  analog dimming input with a jumper.
+- Defaults for PWM dimming (pullup, pulldown) and other inputs
+  (where applicable)
+- Voltage output 5 V instead of 24 V
+- Reduce audible noise (somehow)
+- Use smaller MOSFETs
+- Use better Schottky-diode
+- Use higher rated inductor (to reduce heat)
+- Maybe use different connector
+- Maybe use optocouplers for signals
+- Maybe put microcontroller on board (ATtiny) for on, off, dim, dim curve only
+
+Pinout of the current LED driver and suggested changes
+------------------------------------------------------
+1 FLT (fault)
+2 RT/SYNC (clock)
+3 UVEN (enable, default )
+4 PWMDIM (digital dimming)  -> new: pullup + pulldown (so no jumper is needed)
+5 GND
+6 VIN (24 V)                -> new: 5 V through LDO
+(7)                         -> new: Analog dim reference
+(8)                         -> new: Analog dim input
