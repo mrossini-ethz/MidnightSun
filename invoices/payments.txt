@@ -3,6 +3,8 @@ Marco
 - Physshop (Distrelec) 35 CHF
 - MWST mouser 14.10 CHF
 - Physshop (Distrelec) 11.40 CHF
+- Arduino Uno 20 CHF
+- Arduino Leonardo 20 CHF
 
 
 Philipp
